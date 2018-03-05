@@ -133,3 +133,4 @@ restricted();
 > function () {} instanceof Function
 //true
 函数表达式和对象字面量是例外，这种情形下必须放在括号里面，因为它们看起来像是函数声明和代码块。
+1111111111
