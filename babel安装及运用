@@ -1,0 +1,58 @@
+babel对 es6代码转es5方法如下
+
+首先在项目的目录中生成package.json文件
+npm init --y
+出现如下代码
+{
+	"name": "ceshi",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	 },
+	"scripts": {
+		"build":"babel demo.js --out-file bunder.js"//该处自己复制粘贴配置过来即可，demo.js为自己要转义的js转义成bunder.js
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-es2015": "^6.24.1"
+	}
+}
+注意项目目录中不能含有中文名。  --y是生成默认值的package.json，不用的话，在生成过程中会有一大堆问题，我们依次填入就好。
+安装babel-cli用于命令行转码
+npm install babel-cli --save-dev 
+
+或全局安装（npm install -g babel-cli）  如果安装在全局，那意味着项目要运行，全局环境必须有bable，也就是说项目产生了对环境的依赖，
+另一方面，这样做也无法支持不同项目使用不同版本的babel。
+
+安装转码规则
+npm install --save-dev babel-preset-es2015
+安装完以后想知道是否成功查看package.json中是否生成
+"devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+}
+配置.babelrc
+在跟目录下建立新文件.babelrc
+{
+  "presets": [
+    "es2015"
+  ],
+  "plugins": [
+  ]
+}
+其中presets是规则，plugins是插件支持。
+接下来就可以转码了用babel 原文件.js -o 转换文件.js。-o表示out-file 写入文件。
+每次转码都需要打很多东西，我们可以直接再package.json中修改
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "scripts": {
+    "build": "babel src/index.js -o dist/index.js"
+  },
+修改以后我们就可以直接用npm run build转码了。
+
